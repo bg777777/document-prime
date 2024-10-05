@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getRecommendations } from '../services/api.js';
+import { getRecommendations } from '../services/api';
 
 const Recommendations = () => {
-  const [recommendations, setRecommendations] = useState([]);
+  const [documentaries, setDocumentaries] = useState([]);
 
   useEffect(() => {
     getRecommendations()
       .then(response => {
-        setRecommendations(response.data);
+        setDocumentaries(response.data); 
       })
       .catch(error => {
-        console.error('Erro ao buscar recomendações:', error);
+        console.error('Erro ao buscar documentários recomendados:', error);
       });
   }, []);
 
@@ -18,11 +18,11 @@ const Recommendations = () => {
     <div>
       <h2>Recomendações de Documentários</h2>
       <div className="documentary-list">
-        {recommendations.map(doc => (
+        {documentaries.map(doc => (
           <div key={doc.id} className="card">
-            <img src={doc.imagem} alt={doc.titulo} />
-            <h3>{doc.titulo}</h3>
-            <p>{doc.descricao}</p>
+            <img src={doc.image_url} alt={doc.title} />
+            <h3>{doc.title}</h3>
+            <p>{doc.description}</p>
           </div>
         ))}
       </div>

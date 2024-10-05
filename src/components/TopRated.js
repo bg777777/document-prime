@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getTopRated } from '../services/api.js';
+import { getTopRated } from '../services/api';
 
 const TopRated = () => {
-  const [topRated, setTopRated] = useState([]);
+  const [documentaries, setDocumentaries] = useState([]);
 
   useEffect(() => {
     getTopRated()
       .then(response => {
-        setTopRated(response.data);
+        setDocumentaries(response.data);
       })
       .catch(error => {
-        console.error('Erro ao buscar melhor avaliados:', error);
+        console.error('Erro ao buscar documentários melhor avaliados:', error);
       });
   }, []);
 
@@ -18,11 +18,11 @@ const TopRated = () => {
     <div>
       <h2>Documentários Melhor Avaliados</h2>
       <div className="documentary-list">
-        {topRated.map(doc => (
+        {documentaries.map(doc => (
           <div key={doc.id} className="card">
-            <img src={doc.imagem} alt={doc.titulo} />
-            <h3>{doc.titulo}</h3>
-            <p>{doc.descricao}</p>
+            <img src={doc.image_url} alt={doc.title} />
+            <h3>{doc.title}</h3>
+            <p>{doc.description}</p>
           </div>
         ))}
       </div>

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getRecentReleases } from '../services/api.js';
+import { getRecentReleases } from '../services/api';
 
 const RecentReleases = () => {
-  const [recentReleases, setRecentReleases] = useState([]);
+  const [documentaries, setDocumentaries] = useState([]);
 
   useEffect(() => {
     getRecentReleases()
       .then(response => {
-        setRecentReleases(response.data);
+        setDocumentaries(response.data);
       })
       .catch(error => {
         console.error('Erro ao buscar lançamentos recentes:', error);
@@ -16,13 +16,13 @@ const RecentReleases = () => {
 
   return (
     <div>
-      <h2>Lançamentos Recentes</h2>
+      <h2>Lançamentos Recentes de Documentários</h2>
       <div className="documentary-list">
-        {recentReleases.map(doc => (
+        {documentaries.map(doc => (
           <div key={doc.id} className="card">
-            <img src={doc.imagem} alt={doc.titulo} />
-            <h3>{doc.titulo}</h3>
-            <p>{doc.descricao}</p>
+            <img src={doc.image_url} alt={doc.title} />
+            <h3>{doc.title}</h3>
+            <p>{doc.description}</p>
           </div>
         ))}
       </div>
